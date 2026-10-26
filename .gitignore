@@ -1,0 +1,44 @@
+﻿# Firebase credentials
+firebase-secrets/
+*serviceAccount*.json
+*service-account*.json
+*firebase-adminsdk*.json
+.env
+.env.*
+!.env.example
+
+# Java / Maven
+target/
+**/target/
+*.class
+*.log
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+dist/
+
+# Local configuration
+application-local.properties
+application-local.yml
+
+.git-backup/
+
+# Temporary Java backup files
+*.backup.java.txt
+*.before-firebase-fix.txt
+
+# Additional backend backups
+*.git-reference.txt
+*.incorrect.backup.txt
+
+# Unused Firebase configuration copy
+/BACKEND/src/main/java/com/example/demo/FirebaseConfig

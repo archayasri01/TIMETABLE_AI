@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable AI Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234f46e5'><path d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z'/></svg>">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <h1>TIMETABLE AI</h1>
+                <span>Smart Scheduler</span>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" data-page="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="weekly">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>Weekly Timetable</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="timetables">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>Timetable Entries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="generate">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Auto Generation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="students">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="teachers">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Teachers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="courses">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="classrooms">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Classrooms</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>API Online</span>
+            </div>
+            <span>v1.0.0</span>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="page-title">
+                <h2 id="topbar-title">Dashboard</h2>
+                <p id="topbar-subtitle">Overview and college timetable summary</p>
+            </div>
+            <div class="top-bar-actions">
+                <button class="btn btn-primary" onclick="openCreateTimetableModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>Add Timetable</span>
+                </button>
+                <button class="btn btn-success" onclick="triggerAutoGenerate()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Generate AI</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="page-container">
+
+            <!-- 1. DASHBOARD SECTION -->
+            <section id="section-dashboard" class="page-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon students">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Students</h4>
+                            <div class="stat-value" id="stat-students">0</div>
+                            <div class="stat-desc">Enrolled Learners</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon teachers">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Teachers</h4>
+                            <div class="stat-value" id="stat-teachers">0</div>
+                            <div class="stat-desc">Faculty Members</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon courses">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Courses</h4>
+                            <div class="stat-value" id="stat-courses">0</div>
+                            <div class="stat-desc">Active Subjects</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon classrooms">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Classrooms</h4>
+                            <div class="stat-value" id="stat-classrooms">0</div>
+                            <div class="stat-desc">Rooms & Labs</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon timetables">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Timetables</h4>
+                            <div class="stat-value" id="stat-timetables">0</div>
+                            <div class="stat-desc" id="stat-timetable-breakdown">0 Manual / 0 Auto</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Banner -->
+                <div class="action-banner">
+                    <div class="action-banner-content">
+                        <h3>AI Constraint-Based Timetable Generator</h3>
+                        <p>Automatically match courses, faculty specializations, and classroom capacities across 5 weekdays with zero scheduling conflicts.</p>
+                    </div>
+                    <button class="btn-banner" onclick="triggerAutoGenerate()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Generate Now
+                    </button>
+                </div>
+
+                <!-- Weekly Quick Preview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Weekly Schedule Overview
+                        </h3>
+                        <button class="btn btn-outline btn-sm" onclick="navigateTo('weekly')">Full Weekly View</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="dashboard-weekly-preview" class="weekly-grid-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. WEEKLY TIMETABLE SECTION -->
+            <section id="section-weekly" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Weekly Timetable Matrix</h3>
+                        <div class="filter-bar" style="margin-bottom: 0;">
+                            <select id="weekly-filter-teacher" class="form-control" style="width: auto;" onchange="renderWeeklyTable()">
+                                <option value="">All Teachers</option>
+                            </select>
+                            <select id="weekly-filter-classroom" class="form-control" style="width: auto;" onchange="renderWeeklyTable()">
+                                <option value="">All Classrooms</option>
+                            </select>
+                            <button class="btn btn-secondary btn-sm" onclick="loadAllData()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                                Refresh
+                            </button>
+                            <button class="btn btn-outline btn-sm" onclick="exportWeeklyToCSV()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export CSV
+                            </button>
+                            <button class="btn btn-outline btn-sm" onclick="window.print()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                    <rect x="6" y="14" width="12" height="8"></rect>
+                                </svg>
+                                Print
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="weekly-grid" class="weekly-grid-container">
+                            <!-- Weekly Matrix Grid -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. TIMETABLES MANAGEMENT SECTION -->
+            <section id="section-timetables" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Timetable Entries</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="openCreateTimetableModal()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Add Timetable
+                            </button>
+                            <button class="btn btn-success" onclick="triggerAutoGenerate()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                </svg>
+                                Generate Timetable
+                            </button>
+                            <button class="btn btn-outline" onclick="exportWeeklyToCSV()" title="Export all timetable entries to CSV">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export CSV
+                            </button>
+                            <button class="btn btn-danger" onclick="clearAutoGeneratedTimetables()" title="Delete all auto-generated timetable entries">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                                    <path d="M10 11v6M14 11v6"></path>
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                                </svg>
+                                Clear Auto-Generated
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-bar">
+                            <div class="search-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" id="timetable-search" placeholder="Search by course, teacher, day, classroom..." onkeyup="filterTimetableTable()">
+                            </div>
+                            <select id="timetable-filter-day" class="form-control" style="width: auto;" onchange="filterTimetableTable()">
+                                <option value="">All Days</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                            </select>
+                            <select id="timetable-filter-type" class="form-control" style="width: auto;" onchange="filterTimetableTable()">
+                                <option value="">All Types</option>
+                                <option value="auto">Auto Generated</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Day</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Teacher</th>
+                                        <th>Course</th>
+                                        <th>Classroom</th>
+                                        <th>Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="timetable-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. AUTO GENERATION SECTION -->
+            <section id="section-generate" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Constraint-Based Automated Timetable Generator</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 20px 0;">
+                            <div style="width: 80px; height: 80px; background: #e0e7ff; color: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                </svg>
+                            </div>
+                            <h2 style="margin-bottom: 12px; font-size: 1.6rem;">Automated Scheduling Engine</h2>
+                            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1rem; line-height: 1.6;">
+                                Our constraint engine checks teacher assignments, classroom capacities, course collision rules, and standard collegiate time windows across Monday through Friday.
+                            </p>
+
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-bottom: 36px;">
+                                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px;">
+                                    <h4 style="color: var(--primary); margin-bottom: 6px;">1. Teacher Conflict Rule</h4>
+                                    <p style="font-size: 0.85rem; color: var(--text-secondary);">A teacher cannot be assigned to more than one lecture at overlapping times.</p>
+                                </div>
+                                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px;">
+                                    <h4 style="color: var(--primary); margin-bottom: 6px;">2. Room Conflict Rule</h4>
+                                    <p style="font-size: 0.85rem; color: var(--text-secondary);">A classroom cannot be assigned to two classes simultaneously.</p>
+                                </div>
+                                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px;">
+                                    <h4 style="color: var(--primary); margin-bottom: 6px;">3. Course Conflict Rule</h4>
+                                    <p style="font-size: 0.85rem; color: var(--text-secondary);">A single course cannot have conflicting entries at identical times.</p>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success" style="padding: 14px 32px; font-size: 1.1rem;" onclick="triggerAutoGenerate()">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                </svg>
+                                Run Timetable Generator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. STUDENTS MANAGEMENT SECTION -->
+            <section id="section-students" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Students Management</h3>
+                        <button class="btn btn-primary" onclick="openStudentModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Student
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Department</th>
+                                        <th>Year</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="students-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. TEACHERS MANAGEMENT SECTION -->
+            <section id="section-teachers" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Teachers Management</h3>
+                        <button class="btn btn-primary" onclick="openTeacherModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Teacher
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Subject</th>
+                                        <th>Department</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teachers-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. COURSES MANAGEMENT SECTION -->
+            <section id="section-courses" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Courses Management</h3>
+                        <button class="btn btn-primary" onclick="openCourseModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Course
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Department</th>
+                                        <th>Credits</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courses-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. CLASSROOMS MANAGEMENT SECTION -->
+            <section id="section-classrooms" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Classrooms Management</h3>
+                        <button class="btn btn-primary" onclick="openClassroomModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Classroom
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Building</th>
+                                        <th>Room Number</th>
+                                        <th>Capacity</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="classrooms-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Timetable Modal (Create / Edit) -->
+    <div id="modal-timetable" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="timetable-modal-title">Add Timetable</h3>
+                <button class="close-btn" onclick="closeModal('modal-timetable')">&times;</button>
+            </div>
+            <form id="form-timetable" onsubmit="handleTimetableSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="timetable-id">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tt-teacher">Teacher <span class="required">*</span></label>
+                            <select id="tt-teacher" class="form-control" required>
+                                <option value="">Select Teacher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tt-course">Course <span class="required">*</span></label>
+                            <select id="tt-course" class="form-control" required>
+                                <option value="">Select Course</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tt-classroom">Classroom <span class="required">*</span></label>
+                        <select id="tt-classroom" class="form-control" required>
+                            <option value="">Select Classroom</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tt-day">Day <span class="required">*</span></label>
+                        <select id="tt-day" class="form-control" required>
+                            <option value="">Select Day</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tt-start-time">Start Time <span class="required">*</span></label>
+                            <input type="time" id="tt-start-time" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tt-end-time">End Time <span class="required">*</span></label>
+                            <input type="time" id="tt-end-time" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="tt-auto" style="width: 18px; height: 18px;">
+                        <label for="tt-auto" style="margin-bottom: 0;">Mark as Auto Generated</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-timetable')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-timetable">Save Timetable</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Modal -->
+    <div id="modal-student" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="student-modal-title">Add Student</h3>
+                <button class="close-btn" onclick="closeModal('modal-student')">&times;</button>
+            </div>
+            <form id="form-student" onsubmit="handleStudentSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="student-id">
+                    <div class="form-group">
+                        <label for="student-name">Name <span class="required">*</span></label>
+                        <input type="text" id="student-name" class="form-control" placeholder="e.g. Archa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-email">Email <span class="required">*</span></label>
+                        <input type="email" id="student-email" class="form-control" placeholder="student@gmail.com" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student-dept">Department <span class="required">*</span></label>
+                            <input type="text" id="student-dept" class="form-control" placeholder="CSE" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-year">Year <span class="required">*</span></label>
+                            <input type="number" id="student-year" class="form-control" min="1" max="5" value="1" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-student')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Teacher Modal -->
+    <div id="modal-teacher" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="teacher-modal-title">Add Teacher</h3>
+                <button class="close-btn" onclick="closeModal('modal-teacher')">&times;</button>
+            </div>
+            <form id="form-teacher" onsubmit="handleTeacherSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="teacher-id">
+                    <div class="form-group">
+                        <label for="teacher-name">Name <span class="required">*</span></label>
+                        <input type="text" id="teacher-name" class="form-control" placeholder="e.g. Arun" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-subject">Subject <span class="required">*</span></label>
+                        <input type="text" id="teacher-subject" class="form-control" placeholder="Java Programming" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-dept">Department <span class="required">*</span></label>
+                        <input type="text" id="teacher-dept" class="form-control" placeholder="CSE" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-teacher')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Teacher</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div id="modal-course" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="course-modal-title">Add Course</h3>
+                <button class="close-btn" onclick="closeModal('modal-course')">&times;</button>
+            </div>
+            <form id="form-course" onsubmit="handleCourseSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="course-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-code">Course Code <span class="required">*</span></label>
+                            <input type="text" id="course-code" class="form-control" placeholder="CS301" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-credits">Credits <span class="required">*</span></label>
+                            <input type="number" id="course-credits" class="form-control" min="1" max="10" value="4" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-name">Course Name <span class="required">*</span></label>
+                        <input type="text" id="course-name" class="form-control" placeholder="Java Programming" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-dept">Department <span class="required">*</span></label>
+                        <input type="text" id="course-dept" class="form-control" placeholder="CSE" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-course')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Course</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Classroom Modal -->
+    <div id="modal-classroom" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="classroom-modal-title">Add Classroom</h3>
+                <button class="close-btn" onclick="closeModal('modal-classroom')">&times;</button>
+            </div>
+            <form id="form-classroom" onsubmit="handleClassroomSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="classroom-id">
+                    <div class="form-group">
+                        <label for="classroom-bldg">Building <span class="required">*</span></label>
+                        <input type="text" id="classroom-bldg" class="form-control" placeholder="Block A" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="classroom-room">Room Number <span class="required">*</span></label>
+                            <input type="text" id="classroom-room" class="form-control" placeholder="C101" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="classroom-cap">Capacity <span class="required">*</span></label>
+                            <input type="number" id="classroom-cap" class="form-control" min="1" placeholder="60" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-classroom')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Classroom</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Details Modal -->
+    <div id="modal-view-details" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="view-details-title">Details</h3>
+                <button class="close-btn" onclick="closeModal('modal-view-details')">&times;</button>
+            </div>
+            <div class="modal-body" id="view-details-body">
+                <!-- Dynamically loaded details -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-view-details')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
