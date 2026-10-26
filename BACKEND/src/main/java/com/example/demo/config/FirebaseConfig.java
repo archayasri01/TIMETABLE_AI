@@ -9,7 +9,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
@@ -21,8 +23,23 @@ public class FirebaseConfig {
             return FirebaseApp.getInstance();
         }
 
+        GoogleCredentials credentials;
+
+        String firebaseJson = System.getenv("FIREBASE_SERVICE_ACCOUNT_JSON");
+
+        if (firebaseJson != null && !firebaseJson.isBlank()) {
+            credentials = GoogleCredentials.fromStream(
+                new ByteArrayInputStream(
+                    firebaseJson.getBytes(StandardCharsets.UTF_8)
+                )
+            );
+        } else {
+            // Use local credentials when running on your laptop
+            credentials = GoogleCredentials.getApplicationDefault();
+        }
+
         FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.getApplicationDefault())
+                .setCredentials(credentials)
                 .setProjectId("timetable-ai-6dc00")
                 .build();
 
