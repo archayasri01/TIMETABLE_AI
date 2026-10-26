@@ -1,4 +1,6 @@
-﻿# Firebase credentials
+
+
+# Firebase credentials and secrets
 firebase-secrets/
 *serviceAccount*.json
 *service-account*.json
@@ -7,29 +9,44 @@ firebase-secrets/
 .env.*
 !.env.example
 
+# Firebase local deployment files
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
 # Java / Maven
 target/
 **/target/
 *.class
 *.log
+.mvn/timing.properties
 
 # IDE files
 .idea/
 .vscode/
 *.iml
+.settings/
+.project
+.classpath
 
 # Operating system
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Node.js
 node_modules/
 dist/
+coverage/
 
-# Local configuration
+# Local Spring Boot configuration
 application-local.properties
 application-local.yml
+**/application-local.properties
+**/application-local.yml
 
+# Git backup folders
 .git-backup/
 
 # Temporary Java backup files
@@ -40,5 +57,20 @@ application-local.yml
 *.git-reference.txt
 *.incorrect.backup.txt
 
-# Unused Firebase configuration copy
-/BACKEND/src/main/java/com/example/demo/FirebaseConfig
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# ==========================================
+# IMPORTANT:
+# Keep these project files in GitHub:
+# - FRONTEND/
+# - BACKEND/src/
+# - pom.xml
+# - firebase.json
+# - .firebaserc (if present)
+# - README.md
+# ==========================================
